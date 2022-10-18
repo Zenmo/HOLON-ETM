@@ -2,11 +2,11 @@
 from pathlib import Path
 from pydoc import resolve
 
-from etinput.batches import Batches
-from etinput.data_requests import DataRequests
-from etinput.config import Config
+from etm_service.batches import Batches
+from etm_service.data_requests import DataRequests
+from etm_service.config import Config
 
-CONFIG_PATH = Path(__file__).parents[1].resolve() / 'config' /'etinput.yml'
+CONFIG_PATH = Path(__file__).parents[1].resolve() / 'config' /'etm_service.yml'
 
 def retrieve_results_and_write():
     data_requests = DataRequests.load_from_path(CONFIG_PATH)

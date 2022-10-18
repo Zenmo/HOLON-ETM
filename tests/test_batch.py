@@ -1,7 +1,7 @@
-from etinput.etm_session import ETMConnection
-from etinput.batch import Batch
-from etinput.value import Value
-from etinput.node_property import NodeProperty
+from etm_service.etm_session import ETMConnection
+from etm_service.batch import Batch
+from etm_service.value import Value
+from etm_service.node_property import NodeProperty
 
 
 def test_send_batch(requests_mock):

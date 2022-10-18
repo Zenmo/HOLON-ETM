@@ -1,11 +1,11 @@
 import pytest
 import numpy as np
 
-from etinput.single_request import SingleRequest, MissingRequestInfoException
-from etinput.curve import Curve
-from etinput.value import Value
-from etinput.converters import DivideBy
-from etinput.node_property import NodeProperty
+from etm_service.single_request import SingleRequest, MissingRequestInfoException
+from etm_service.curve import Curve
+from etm_service.value import Value
+from etm_service.converters import DivideBy
+from etm_service.node_property import NodeProperty
 
 @pytest.fixture
 def request_with_curve():

@@ -1,4 +1,4 @@
-# The ETInput module
+# The etm_service module
 
 Welcome to the little ETM input module. You can install all dependencies through `pipenv`. Make sure you have some Python manager like `pyenv` installed previously.
 
@@ -30,7 +30,7 @@ If you're not interested in `pipenv`, the used dependencies are very straightfor
 ## Configuring the module
 The main action for modelers here is in the config folder. The `config` file allows you to specify where the data comes from and goes to. You can specify which ETM engine you want to connect to, with which scenario you want to communicate, and where the data should be written to.
 
-The `etinput` file contains _what_ information should be pulled from the ETM and if any conversions should be done on it. There is a description at the top of the file telling you what is expected for each field, and some dummy data.
+The `etm_service` file contains _what_ information should be pulled from the ETM and if any conversions should be done on it. There is a description at the top of the file telling you what is expected for each field, and some dummy data.
 
 ## Adding new conversions
 Currently only 'divide' is supported as a conversion, but it's relatively easy to add more different types. Here's a little guide if any of you wants to try.

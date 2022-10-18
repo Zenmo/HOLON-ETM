@@ -1,4 +1,4 @@
-from etinput.config import Config
+from etm_service.config import Config
 
 class ETMSession:
     def __init__(self):

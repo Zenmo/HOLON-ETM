@@ -1,4 +1,4 @@
-from etinput.etm_session import ETMConnection
+from etm_service.etm_session import ETMConnection
 
 class Batch():
     def __init__(self, endpoint):

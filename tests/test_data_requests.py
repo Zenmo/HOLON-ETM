@@ -1,6 +1,6 @@
-from etinput.data_requests import DataRequests
-from etinput.single_request import SingleRequest
-from etinput.batches import Batches
+from etm_service.data_requests import DataRequests
+from etm_service.single_request import SingleRequest
+from etm_service.batches import Batches
 
 def test_load(config_path):
     data_requests = DataRequests.load_from_path(config_path)

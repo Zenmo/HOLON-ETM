@@ -6,10 +6,10 @@ Then you can run the module by running this script :)
 Or incorporate it somwehere else!
 '''
 from os import sys, path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))) + '/src')
 
-import etinput
+import etm_service
 
 if __name__ == '__main__':
-    etinput.retrieve_results_and_write()
+    etm_service.retrieve_results_and_write()
 

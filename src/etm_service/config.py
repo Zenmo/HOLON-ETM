@@ -6,7 +6,7 @@ import yaml
 from pathlib import Path
 
 class Config:
-    CONFIG_PATH = Path(__file__).parents[1].resolve() / 'config' / 'config.yml'
+    CONFIG_PATH = Path(__file__).parents[2].resolve() / 'config' / 'config.yml'
 
     class __Config:
         def __init__(self, data):

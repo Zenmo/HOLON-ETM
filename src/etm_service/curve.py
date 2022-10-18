@@ -1,6 +1,6 @@
 import numpy as np
 
-from etinput.value import Value
+from etm_service.value import Value
 
 
 class Curve(Value):

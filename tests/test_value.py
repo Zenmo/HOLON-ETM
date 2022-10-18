@@ -1,7 +1,7 @@
 from pathlib import Path
 import pytest
 
-from etinput.value import Value
+from etm_service.value import Value
 
 
 def test_write_to():

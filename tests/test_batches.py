@@ -1,8 +1,8 @@
 import pytest
 
-from etinput.batches import Batches
-from etinput.curve import Curve
-from etinput.value import Value
+from etm_service.batches import Batches
+from etm_service.curve import Curve
+from etm_service.value import Value
 
 @pytest.fixture
 def values():

@@ -1,7 +1,7 @@
 import pytest
 
-from etinput.etm_session.session import ETMConnectionError, ETMSession
-from etinput.etm_session import ETMConnection, InvalidEndpoint
+from etm_service.etm_session.session import ETMConnectionError, ETMSession
+from etm_service.etm_session import ETMConnection, InvalidEndpoint
 
 def test_connection():
     connection = ETMConnection('queries')

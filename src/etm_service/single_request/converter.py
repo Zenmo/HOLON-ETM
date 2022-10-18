@@ -1,7 +1,7 @@
-from etinput.curve import Curve
-from etinput.value import Value
-from etinput.node_property import NodeProperty
-import etinput.converters as converters
+from etm_service.curve import Curve
+from etm_service.value import Value
+from etm_service.node_property import NodeProperty
+import etm_service.converters as converters
 
 class RequestConverter:
     @property
