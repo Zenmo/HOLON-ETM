@@ -6,7 +6,7 @@ from etm_service.batches import Batches
 from etm_service.data_requests import DataRequests
 from etm_service.config import Config
 
-CONFIG_PATH = Path(__file__).parents[1].resolve() / 'config' /'etm_service.yml'
+CONFIG_PATH = Path(__file__).parents[2].resolve() / 'config' /'etm_service.yml'
 
 def retrieve_results_and_write():
     data_requests = DataRequests.load_from_path(CONFIG_PATH)

@@ -10,5 +10,5 @@ scenario:
   # create_new: false
   # create_copy: false
 
-output_folder: '../output'
+output_folder: 'output'
 # output_format: csv, of combined_csv, of als stream, als dataframe
