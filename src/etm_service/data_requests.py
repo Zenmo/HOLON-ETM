@@ -26,6 +26,10 @@ class DataRequests:
         for request in self.all():
             request.write_to(path)
 
+    def to_dict(self):
+        '''Returns the results as a dictionary (only available after calculation)'''
+        return {result.key: result.value() for result in self.all()}
+
     @classmethod
     def load_from_path(cls, path):
         '''Loads the data requests from the config'''

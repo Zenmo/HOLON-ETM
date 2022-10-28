@@ -14,3 +14,7 @@ class SingleRequest(RequestConverter):
 
     def write_to(self, path):
         self.converter.main_value.write_to(path / f'{self.key}.csv')
+
+    def value(self):
+        '''Returns the resulting value (only avaibale after calculation)'''
+        return self.converter.main_value.value()

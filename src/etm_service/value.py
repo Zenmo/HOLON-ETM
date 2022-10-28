@@ -42,9 +42,18 @@ class Value:
 
     def write_to(self, path):
         '''Writes the values as a CSV to the given path'''
-        if self.is_set():
-            np.savetxt(path, self._value_as_np(), delimiter=',')
-        else:
+        self._validate()
+
+        np.savetxt(path, self._value_as_np(), delimiter=',')
+
+    def value(self):
+        '''Returns the inner value'''
+        self._validate()
+
+        return self._value
+
+    def _validate(self):
+        if not self.is_set():
             raise ValueError(f'{str(self)} was not yet set or updated.')
 
     def __str__(self):
