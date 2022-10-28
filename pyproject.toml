@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "etm-service"
+description = 'Connection service between HOLON and ETM'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "noracato" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  'numpy', 'pyyaml', 'requests'
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/ZEnMO/etm-service#readme"
+Issues = "https://github.com/ZEnMO/etm-service/issues"
+Source = "https://github.com/ZEnMo/etm-service"
+
+[tool.hatch.version]
+path = "src/etm_service/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "requests-mock",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=etm_service --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+etm_to_csv = "python scripts/update_etm_input.py"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["37", "38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "etm_service/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/scripts",
+  "/output"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/etm_input"]

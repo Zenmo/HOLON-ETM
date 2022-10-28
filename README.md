@@ -1,31 +1,18 @@
 # The etm_service module
 
-Welcome to the little ETM input module. You can install all dependencies through `pipenv`. Make sure you have some Python manager like `pyenv` installed previously.
+Welcome to the little ETM input module.
 
-You can install `pipenv` through `pip` if you don't have it yet:
-
+Running an example of the module via `hatch`:
 ```
-pip install pipenv
-```
-
-Then you can install all dependencies at once in your virtual environment with:
-```
-pipenv install --dev --ignore-pipfile
-```
-
-There are a few shortcuts available through `pipenv`.
-
-Running the module:
-```
-pipenv run etm_to_csv
+hatch run etm_to_csv
 ```
 
 And running the tests:
 ```
-pipenv run tests
+hatch run cov
 ```
 
-If you're not interested in `pipenv`, the used dependencies are very straightforward, like `numpy` and `requests`. So you should be fine by just running the scripts in the `scripts` folder in your own way.
+If you're not interested in `hatch`, the used dependencies are very straightforward, and can be found in the `pyproject.toml`. So you should be fine by just running the examples in the `scripts` folder in your own way.
 
 ## Configuring the module
 The main action for modelers here is in the config folder. The `config` file allows you to specify where the data comes from and goes to. You can specify which ETM engine you want to connect to, with which scenario you want to communicate, and where the data should be written to.
