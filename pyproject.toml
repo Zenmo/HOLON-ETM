@@ -29,9 +29,9 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Documentation = "https://github.com/ZEnMO/etm-service#readme"
-Issues = "https://github.com/ZEnMO/etm-service/issues"
-Source = "https://github.com/ZEnMo/etm-service"
+Documentation = "https://github.com/ZEnMO/HOLON-ETM#readme"
+Issues = "https://github.com/ZEnMO/HOLON-ETM/issues"
+Source = "https://github.com/ZEnMo/HOLON-ETM"
 
 [tool.hatch.version]
 path = "src/etm_service/__about__.py"
@@ -73,4 +73,4 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/etm_input"]
+packages = ["src/etm_service"]

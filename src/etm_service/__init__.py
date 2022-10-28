@@ -22,14 +22,17 @@ def retrieve_results_and_write():
     data_requests.write_to(destination)
 
 
-def retrieve_results(scenario_id, config_name='etm_service') -> dict:
+def retrieve_results(scenario_id, config_path=CONFIG_PATH, config_name='etm_service') -> dict:
     '''
     Retrieves the ETM outputs as specified in the config, and returns the results in a dict
     '''
-    data_requests = DataRequests.load_from_path(CONFIG_PATH / f'{config_name}.yml')
-
+    # Update configs
+    Config.CONFIG_PATH = config_path / 'config.yml'
     if scenario_id:
         Config().scenario['id'] = scenario_id
+
+    # Create and send requests
+    data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml')
 
     batches = Batches()
 

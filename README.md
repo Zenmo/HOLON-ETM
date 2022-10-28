@@ -14,6 +14,15 @@ hatch run cov
 
 If you're not interested in `hatch`, the used dependencies are very straightforward, and can be found in the `pyproject.toml`. So you should be fine by just running the examples in the `scripts` folder in your own way.
 
+
+### Using the packaged version
+You can also install the lastest realease as a package with `pip`.
+```
+pip install dist/etm_service-0.1.tar.gz
+```
+And then import it into your own project with `import etm_service`. Check out some
+examples in the scripts folder, like `get_etm_results.py`.
+
 ## Configuring the module
 The main action for modelers here is in the config folder. The `config` file allows you to specify where the data comes from and goes to. You can specify which ETM engine you want to connect to, with which scenario you want to communicate, and where the data should be written to.
 
