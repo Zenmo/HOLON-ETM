@@ -2,6 +2,7 @@ import pytest
 
 from etm_service.etm_session.session import ETMConnectionError, ETMSession
 from etm_service.etm_session import ETMConnection, InvalidEndpoint
+from etm_service.config import Config
 
 def test_connection():
     connection = ETMConnection('queries')
@@ -96,4 +97,19 @@ def test_set_inputs(requests_mock):
 
     assert next(result)
 
-# copy scenario! Also return the new scenario ID? --> yes
+def test_copy_scenario(requests_mock):
+    connection = ETMConnection('copy')
+    original_id = Config().scenario['id']
+
+    requests_mock.post(
+        connection.session.url(),
+        status_code=200,
+        json={
+            "id": 12345 # There is actually more info in here, but we don't use it
+        }
+    )
+
+    result = connection.connect('')
+
+    assert next(result)
+    assert Config().scenario['id'] != original_id

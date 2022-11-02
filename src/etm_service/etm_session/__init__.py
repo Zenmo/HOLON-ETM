@@ -1,3 +1,4 @@
+from .copy import ETMCopySession
 from .inputs import ETMGetInputsSession, ETMSetInputsSession
 from .queries import ETMQuerySession
 from .curves import ETMCurvesSession
@@ -24,6 +25,8 @@ class ETMConnection:
             self._session = ETMNodesSession()
         elif endpoint_key == 'inputs':
             self._session = ETMGetInputsSession() if self.action == 'GET' else ETMSetInputsSession()
+        elif endpoint_key == 'copy':
+            self._session = ETMCopySession()
         else:
             raise InvalidEndpoint(endpoint_key)
 
