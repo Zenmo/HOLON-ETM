@@ -1,11 +1,12 @@
-from .inputs import ETMInputsSession
+from .inputs import ETMGetInputsSession, ETMSetInputsSession
 from .queries import ETMQuerySession
 from .curves import ETMCurvesSession
 from .nodes import ETMNodesSession
 
 class ETMConnection:
-    def __init__(self, endpoint_key):
+    def __init__(self, endpoint_key, action='GET'):
         '''Connect to the endpoint named by the key'''
+        self.action = action
         self.session = endpoint_key
 
     @property
@@ -22,7 +23,7 @@ class ETMConnection:
         elif endpoint_key == 'nodes':
             self._session = ETMNodesSession()
         elif endpoint_key == 'inputs':
-            self._session = ETMInputsSession()
+            self._session = ETMGetInputsSession() if self.action == 'GET' else ETMSetInputsSession()
         else:
             raise InvalidEndpoint(endpoint_key)
 

@@ -69,7 +69,8 @@ exclude_lines = [
 exclude = [
   "/.github",
   "/scripts",
-  "/output"
+  "/output",
+  "/dist"
 ]
 
 [tool.hatch.build.targets.wheel]

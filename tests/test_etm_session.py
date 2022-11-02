@@ -78,3 +78,22 @@ def test_send_request_to_nodes(requests_mock, nodes_response_data, helpers):
     second_key, second_val = next(result)
     assert second_key == nodes[1]
     assert second_val == nodes_response_data
+
+
+def test_set_inputs(requests_mock):
+    connection = ETMConnection('inputs', action='PUT')
+    inputs = {'input_1': 500, 'input_2': 2.5}
+
+    requests_mock.put(
+        connection.session.url(),
+        status_code=200,
+        json={
+            "scenario": {} # There is actually more info in here, but we don't use it
+        }
+    )
+
+    result = connection.connect(inputs)
+
+    assert next(result)
+
+# copy scenario! Also return the new scenario ID? --> yes
