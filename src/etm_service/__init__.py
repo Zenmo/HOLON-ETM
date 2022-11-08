@@ -42,3 +42,32 @@ def retrieve_results(scenario_id, config_path=CONFIG_PATH, config_name='etm_serv
     data_requests.convert()
 
     return data_requests.to_dict()
+
+
+def scale_copy_and_send(scenario_id, holon_outcomes, config_path=CONFIG_PATH, config_name='scaling_factors') -> int:
+    '''
+    Scales and updates sliders in the ETM, returns the ETM scenario ID of the copied and
+    set scenario.
+    '''
+
+    # Update configs
+    Config.CONFIG_PATH = config_path / 'config.yml'
+    if scenario_id:
+        Config().scenario['id'] = scenario_id
+
+
+    # Create and send requests
+    data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml', action='SET')
+    # Validate outcome names and merge (holon_outcomes)
+
+    # Convert first
+    data_requests.convert()
+
+    # Prepare batches
+
+    # Send
+
+
+    # TODO: See if this method holds when running parallel instances! -> we might need a session
+    # in the config that is wiped after use for the scenario_id -> check with Seth and Mattijs
+    return Config().scenario['id']

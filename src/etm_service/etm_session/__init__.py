@@ -3,6 +3,7 @@ from .inputs import ETMGetInputsSession, ETMSetInputsSession
 from .queries import ETMQuerySession
 from .curves import ETMCurvesSession
 from .nodes import ETMNodesSession
+from .session import ETMSession
 
 class ETMConnection:
     def __init__(self, endpoint_key, action='GET'):
@@ -16,13 +17,17 @@ class ETMConnection:
 
     @session.setter
     def session(self, endpoint_key):
-        '''Sets the correct session based on the endpoint_key'''
+        '''
+        Sets the correct session based on the endpoint_key, if unavailable for this action
+        returns an empty session
+        TODO: or raise the invalid endpoint??
+        '''
         if endpoint_key == 'queries':
-            self._session = ETMQuerySession()
+            self._session = ETMQuerySession() if self.action == 'GET' else ETMSession()
         elif endpoint_key == 'curves':
-            self._session == ETMCurvesSession()
+            self._session == ETMCurvesSession() if self.action == 'GET' else ETMSession()
         elif endpoint_key == 'nodes':
-            self._session = ETMNodesSession()
+            self._session = ETMNodesSession() if self.action == 'GET' else ETMSession()
         elif endpoint_key == 'inputs':
             self._session = ETMGetInputsSession() if self.action == 'GET' else ETMSetInputsSession()
         elif endpoint_key == 'copy':

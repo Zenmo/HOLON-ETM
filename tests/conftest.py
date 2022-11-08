@@ -9,6 +9,10 @@ def config_path():
     return Path('tests/fixtures/etm_service_config.yml').resolve()
 
 @pytest.fixture
+def config_path_scaling():
+    return Path('tests/fixtures/scaling_factors.yml').resolve()
+
+@pytest.fixture
 def nodes_response_data():
     return {
         "technical": {

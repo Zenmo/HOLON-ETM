@@ -28,3 +28,10 @@ def test_ready_batches(config_path):
             continue # Not yet implemented in the test
 
         assert not batch.is_empty()
+
+def test_load_with_set_action(config_path_scaling):
+    data_requests = DataRequests.load_from_path(config_path_scaling, action='SET')
+
+    single_req = next(data_requests.all())
+
+    assert single_req.action == 'SET'

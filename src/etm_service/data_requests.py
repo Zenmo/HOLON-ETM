@@ -31,9 +31,9 @@ class DataRequests:
         return {result.key: result.value() for result in self.all()}
 
     @classmethod
-    def load_from_path(cls, path):
+    def load_from_path(cls, path, action='GET'):
         '''Loads the data requests from the config'''
         with open(path, 'r') as f:
             doc = yaml.load(f, Loader=yaml.FullLoader)
 
-        return cls([SingleRequest(key, **data) for key, data in doc.items()])
+        return cls([SingleRequest(key, action, **data) for key, data in doc.items()])

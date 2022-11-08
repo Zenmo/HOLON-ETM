@@ -9,13 +9,13 @@ from etm_service.node_property import NodeProperty
 
 @pytest.fixture
 def request_with_curve():
-    return SingleRequest('buildings_heating_electricity_curve', value={'data':'curve',
+    return SingleRequest('buildings_heating_electricity_curve', 'GET', value={'data':'curve',
         'etm_key':'the_curve_key', 'type':'query'}, conversion='divide',
         convert_with_value={'data':'curve', 'etm_key':'the_query_key', 'type':'query'})
 
 @pytest.fixture
 def request_with_curve_and_node_property():
-    return SingleRequest('buildings_heating_electricity_curve', value={'data':'curve',
+    return SingleRequest('buildings_heating_electricity_curve', 'GET', value={'data':'curve',
         'etm_key':'the_curve_key', 'type':'query'}, conversion='divide',
         convert_with_value={'data':'technical.electricity_output_conversion.future',
         'etm_key':'industry_chp_combined_cycle_gas_power_fuelmix', 'type':'node_property'})
@@ -75,21 +75,21 @@ def test_request_with_curve_and_node_property(request_with_curve_and_node_proper
 def test_request_without_correct_value_properties():
     # With just one value with typos - this is OK here, it will probably mess up
     # somewhere in the batches
-    SingleRequest('some_key', value={'data':'curves',
+    SingleRequest('some_key','GET', value={'data':'curves',
         'etm_key':'the_curve_key', 'type':'query'})
 
     # With one value with 'type' missing
     with pytest.raises(MissingRequestInfoException):
-        SingleRequest('some_key', value={'data':'curve',
+        SingleRequest('some_key', 'GET', value={'data':'curve',
             'etm_key':'the_curve_key'})
 
     # With an unknown conversion
     with pytest.raises(MissingRequestInfoException):
-        SingleRequest('buildings_heating_electricity_curve', value={'data':'curve',
+        SingleRequest('buildings_heating_electricity_curve','GET', value={'data':'curve',
             'etm_key':'the_curve_key', 'type':'query'}, conversion='kittens',
             convert_with_value={'data':'curve', 'etm_key':'the_query_key', 'type':'query'})
 
     # With a conversion that takes a second value, where this value is not specified
     with pytest.raises(MissingRequestInfoException):
-        SingleRequest('buildings_heating_electricity_curve', value={'data':'curve',
+        SingleRequest('buildings_heating_electricity_curve', 'GET', value={'data':'curve',
             'etm_key':'the_curve_key', 'type':'query'}, conversion='divide')

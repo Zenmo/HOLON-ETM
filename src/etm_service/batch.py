@@ -1,7 +1,7 @@
 from etm_service.etm_session import ETMConnection
 
 class Batch():
-    def __init__(self, endpoint):
+    def __init__(self, endpoint, action='GET'):
         '''
         Create a batch request
 
@@ -9,6 +9,7 @@ class Batch():
             endpoint: Valid endpoint of the ETM, can be one of 'curves', 'nodes' or 'queries'
         '''
         self.endpoint = endpoint
+        self.action = action
         self._batch = []
 
     def is_empty(self):
@@ -28,9 +29,15 @@ class Batch():
         '''Create ETM session with the config stuff and send and handle results'''
         if not self._batch: return
 
-        self._inject_results(ETMConnection(self.endpoint).connect(self.keys()))
+        if self.action == 'GET':
+            self._inject_results(ETMConnection(self.endpoint, self.action).connect(self.keys()))
+        else:
+            ETMConnection(self.endpoint, self.action).connect(self._values)
 
     # Private
+
+    def _values(self):
+        return {value.key: value.value() for value in self._batch}
 
     def _inject_results(self, results):
         '''Update the Values in the batch with the results from the response'''

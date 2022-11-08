@@ -4,9 +4,9 @@ class ETMSession:
     def __init__(self):
         pass
 
-    def send_request(self, keys):
+    def send_request(self, data):
         '''Generator of Results'''
-        pass
+        yield from ()
 
     def url(self):
         return f"{Config().api_url}{Config().scenario['id']}{self.ENDPOINT}"
