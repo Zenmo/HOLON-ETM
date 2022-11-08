@@ -26,7 +26,7 @@ class RequestConverter:
         Extract which type of data we're dealing with, can be a Curve or a single value
         '''
         if endpoint == "static":
-            return Value(key, value=data)
+            return Value(key, value=data, static=True)
         elif data == "curve":
             return Curve(key, endpoint)
         elif endpoint == "node_property":

@@ -3,14 +3,18 @@ from pathlib import Path
 
 from etm_service.batches import Batches
 from etm_service.data_requests import DataRequests
+from etm_service.etm_session import ETMConnection
 from etm_service.combiner import Combiner
 from etm_service.config import Config
 
 CONFIG_PATH = Path(__file__).parents[2].resolve() / 'config'
 
 def retrieve_results_and_write():
+    # Basic scenario
+    scenario_id = 1647734
+
     data_requests = DataRequests.load_from_path(CONFIG_PATH)
-    batches = Batches()
+    batches = Batches(scenario_id)
 
     data_requests.ready(batches)
     batches.send()
@@ -28,8 +32,6 @@ def retrieve_results(scenario_id, config_path=CONFIG_PATH, config_name='etm_serv
     '''
     # Update configs
     Config.CONFIG_PATH = config_path / 'config.yml'
-    if scenario_id:
-        Config().scenario['id'] = scenario_id
 
     # Create and send requests
     data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml')
@@ -37,7 +39,7 @@ def retrieve_results(scenario_id, config_path=CONFIG_PATH, config_name='etm_serv
     batches = Batches()
 
     data_requests.ready(batches)
-    batches.send()
+    batches.send(scenario_id)
 
     data_requests.convert()
 
@@ -52,9 +54,6 @@ def scale_copy_and_send(scenario_id, holon_outcomes, config_path=CONFIG_PATH, co
 
     # Update configs
     Config.CONFIG_PATH = config_path / 'config.yml'
-    if scenario_id:
-        Config().scenario['id'] = scenario_id
-
 
     # Create and send requests
     data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml', action='SET')
@@ -67,10 +66,11 @@ def scale_copy_and_send(scenario_id, holon_outcomes, config_path=CONFIG_PATH, co
     data_requests.convert()
 
     # Prepare batches
+    batches = Batches(action='SET')
+    data_requests.ready(batches)
 
-    # Send
+    # Copy scenario and send
+    scenario_copy = next(ETMConnection('copy', scenario_id).connect(None))
+    batches.send(scenario_copy)
 
-
-    # TODO: See if this method holds when running parallel instances! -> we might need a session
-    # in the config that is wiped after use for the scenario_id -> check with Seth and Mattijs
-    return Config().scenario['id']
+    return scenario_copy

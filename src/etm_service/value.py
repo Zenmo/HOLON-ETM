@@ -1,15 +1,16 @@
 import numpy as np
 
 class Value:
-    def __init__(self, key, endpoint='query', value=None):
+    def __init__(self, key, endpoint='query', value=None, static=False):
         '''
         Respresents a value. Values contain info about their ETM key and endpoint,
         and extra information if needed. A (numeric) value is not set at initialisation
-        and can be updated after connecting to the ETM.
+        and can be updated after connecting to the ETM, unless the value is static.
         '''
         self.key = key
         self.endpoint = endpoint
         self._value = value
+        self.static = static
 
     def is_set(self):
         '''Bool, returns if the value is set'''

@@ -27,14 +27,15 @@ class Batch():
         '''Returns a list of keys that should be requested from the endpoint'''
         return [value.key for value in self._batch]
 
-    def send(self):
+    def send(self, scenario_id):
         '''Create ETM session with the config stuff and send and handle results'''
         if not self._batch: return
 
         if self.action == 'GET':
-            self._inject_results(ETMConnection(self.endpoint, self.action).connect(self.keys()))
+            self._inject_results(ETMConnection(self.endpoint, scenario_id, self.action).connect(self.keys()))
         else:
-            ETMConnection(self.endpoint, self.action).connect(self._values)
+            # TODO: make this nicer
+            next(ETMConnection(self.endpoint, scenario_id, self.action).connect(self._values()))
 
     # Private
 

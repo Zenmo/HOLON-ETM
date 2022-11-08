@@ -93,3 +93,22 @@ def test_request_without_correct_value_properties():
     with pytest.raises(MissingRequestInfoException):
         SingleRequest('buildings_heating_electricity_curve', 'GET', value={'data':'curve',
             'etm_key':'the_curve_key', 'type':'query'}, conversion='divide')
+
+
+def test_values():
+    request = SingleRequest('buildings_heating_electricity', 'SET', value={'data':'value',
+        'etm_key':'the_etm_key', 'type':'inputs'}, conversion='multiply',
+        convert_with_value={'key':'scaling_factor_x', 'value':500, 'type':'static'})
+
+    request.set_value(10)
+
+    request_values = request.values()
+    # Only send the first value as required for calculation
+    assert next(request_values).value() == 10
+    with pytest.raises(StopIteration):
+        next(request_values)
+
+
+    request.calculate()
+
+    assert request.value() == 10*500

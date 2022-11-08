@@ -47,6 +47,7 @@ cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=etm_se
 no-cov = "cov --no-cov {args}"
 etm_to_csv = "python scripts/update_etm_input.py"
 plain_results = "python scripts/get_etm_results.py"
+scale_kpis = "python scripts/send_holon_results.py"
 
 [[tool.hatch.envs.test.matrix]]
 python = ["37", "38", "39", "310", "311"]

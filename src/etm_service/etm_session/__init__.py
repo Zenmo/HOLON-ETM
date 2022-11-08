@@ -6,13 +6,19 @@ from .nodes import ETMNodesSession
 from .session import ETMSession
 
 class ETMConnection:
-    def __init__(self, endpoint_key, action='GET'):
+    def __init__(self, endpoint_key, scenario_id, action='GET'):
         '''Connect to the endpoint named by the key'''
         self.action = action
         self.session = endpoint_key
+        self.scenario_id = scenario_id
 
     @property
     def session(self):
+        return self._session
+
+    @session.getter
+    def session(self):
+        self._session.scenario_id = self.scenario_id
         return self._session
 
     @session.setter

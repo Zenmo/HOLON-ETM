@@ -26,10 +26,10 @@ class Batches:
         else:
             raise UnknownValueType(f'{value} could not be added to a batch')
 
-    def send(self):
+    def send(self, scenario_id):
         '''Sends all the batches'''
         for batch in self.each():
-            batch.send()
+            batch.send(scenario_id)
 
 class UnknownValueType(BaseException):
     pass

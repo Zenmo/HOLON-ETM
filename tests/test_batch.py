@@ -10,7 +10,7 @@ def test_send_batch(requests_mock):
 
      # QUERIES
     requests_mock.put(
-        ETMConnection(endpoint).session.url(),
+        ETMConnection(endpoint, 12345).session.url(),
         status_code=200,
         json={
             "gqueries": {
@@ -32,7 +32,7 @@ def test_send_batch(requests_mock):
     value_2 = Value("costs_of_capital_in_electricity_production")
     batch.add(value_1, value_2)
 
-    batch.send()
+    batch.send(12345)
 
     assert value_1.is_set()
     assert value_2.is_set()
@@ -41,7 +41,7 @@ def test_send_batch_to_nodes(requests_mock, nodes_response_data, helpers):
     endpoint = 'nodes'
     batch = Batch(endpoint)
     nodes = ['industry_chp_combined_cycle_gas_power_fuelmix', 'node_2']
-    helpers.mock_nodes_response(requests_mock, nodes_response_data, ETMConnection(endpoint), nodes)
+    helpers.mock_nodes_response(requests_mock, nodes_response_data, ETMConnection(endpoint, 12345), nodes)
 
     value_1 = NodeProperty(
         "industry_chp_combined_cycle_gas_power_fuelmix",
@@ -54,7 +54,7 @@ def test_send_batch_to_nodes(requests_mock, nodes_response_data, helpers):
         endpoint='node_property')
     batch.add(value_1, value_2)
 
-    batch.send()
+    batch.send(12345)
 
     assert value_1.is_set()
     assert value_2.is_set()
