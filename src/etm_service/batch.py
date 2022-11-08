@@ -19,6 +19,8 @@ class Batch():
     def add(self, *values):
         '''Add one or more Values to the batch'''
         for value in values:
+            if self.action == 'SET' and not value.is_set():
+                continue
             self._batch.append(value)
 
     def keys(self):

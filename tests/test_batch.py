@@ -61,3 +61,15 @@ def test_send_batch_to_nodes(requests_mock, nodes_response_data, helpers):
 
     assert value_1._value == 5443.360123449158
     assert value_2._value == 958583
+
+def test_add_to_batch_with_set_action():
+    endpoint = 'inputs'
+    batch = Batch(endpoint, action='SET')
+
+    value_1 = Value("costs_of_insulation", 'inputs')
+    value_2 = Value("costs_of_capital_in_electricity_production", 'inputs', 8)
+
+    batch.add(value_1, value_2)
+
+    assert value_2.key in batch.keys()
+    assert not value_1.key in batch.keys()

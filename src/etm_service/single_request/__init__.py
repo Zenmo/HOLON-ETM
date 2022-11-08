@@ -12,6 +12,7 @@ class SingleRequest(RequestConverter, Action):
         self.converter.calculate()
 
     def values(self):
+        # TODO: make this depend on the kind of request
         yield from self.converter.required_for_calculation()
 
     def write_to(self, path):
@@ -20,3 +21,6 @@ class SingleRequest(RequestConverter, Action):
     def value(self):
         '''Returns the resulting value (only avaibale after calculation)'''
         return self.converter.main_value.value()
+
+    def set_value(self, val):
+        self.converter.main_value.update(val)

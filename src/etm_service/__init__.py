@@ -1,9 +1,9 @@
 #  Module init
 from pathlib import Path
-from pydoc import resolve
 
 from etm_service.batches import Batches
 from etm_service.data_requests import DataRequests
+from etm_service.combiner import Combiner
 from etm_service.config import Config
 
 CONFIG_PATH = Path(__file__).parents[2].resolve() / 'config'
@@ -58,7 +58,10 @@ def scale_copy_and_send(scenario_id, holon_outcomes, config_path=CONFIG_PATH, co
 
     # Create and send requests
     data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml', action='SET')
-    # Validate outcome names and merge (holon_outcomes)
+
+    # Combine requests with HOLON outcomes
+    combiner = Combiner(holon_outcomes)
+    data_requests.combine(combiner)
 
     # Convert first
     data_requests.convert()

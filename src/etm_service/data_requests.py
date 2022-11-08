@@ -16,6 +16,11 @@ class DataRequests:
             for value in single_request.values():
                 batches.add(value)
 
+    def combine(self, combiner):
+        '''Use the combiner to inject the holon outcomes into the (SET) requests'''
+        for single_request in self.all():
+            combiner.inject(single_request)
+
     def convert(self):
         '''Start converters on all single_requests'''
         for request in self.all():
