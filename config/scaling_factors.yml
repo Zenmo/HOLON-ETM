@@ -33,3 +33,9 @@ energy_power_solar_pv_solar_radiation_capacity:
     type: static
     value: 500
     key: scaling_factor_for_solar_pv
+
+name_of_ev_curve_output_of_holon:
+  value:
+    type: curve
+    data: curve
+    etm_key: electric_vehicle_profile_1

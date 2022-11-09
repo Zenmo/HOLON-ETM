@@ -106,7 +106,7 @@ def test_copy_scenario(requests_mock, scenario_id):
     original_id = Config().scenario['id']
 
     requests_mock.post(
-        connection.session.url(),
+        Config().api_url,
         status_code=200,
         json={
             "id": 12345 # There is actually more info in here, but we don't use it

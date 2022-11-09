@@ -1,7 +1,7 @@
 from .copy import ETMCopySession
 from .inputs import ETMGetInputsSession, ETMSetInputsSession
 from .queries import ETMQuerySession
-from .curves import ETMCurvesSession
+from .curves import ETMSetCurvesSession
 from .nodes import ETMNodesSession
 from .session import ETMSession
 
@@ -31,7 +31,7 @@ class ETMConnection:
         if endpoint_key == 'queries':
             self._session = ETMQuerySession() if self.action == 'GET' else ETMSession()
         elif endpoint_key == 'curves':
-            self._session == ETMCurvesSession() if self.action == 'GET' else ETMSession()
+            self._session = ETMSession() if self.action == 'GET' else ETMSetCurvesSession()
         elif endpoint_key == 'nodes':
             self._session = ETMNodesSession() if self.action == 'GET' else ETMSession()
         elif endpoint_key == 'inputs':
