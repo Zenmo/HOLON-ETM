@@ -35,7 +35,8 @@ class Batch():
             self._inject_results(ETMConnection(self.endpoint, scenario_id, self.action).connect(self.keys()))
         else:
             # TODO: make this nicer
-            next(ETMConnection(self.endpoint, scenario_id, self.action).connect(self._values()))
+            for _ in ETMConnection(self.endpoint, scenario_id, self.action).connect(self._values()):
+                continue
 
     # Private
 
