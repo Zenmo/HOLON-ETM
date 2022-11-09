@@ -1,8 +1,10 @@
 from .converter import RequestConverter, MissingRequestInfoException
+from etm_service.action import Action
 
-class SingleRequest(RequestConverter):
-    def __init__(self, key, **config_data):
+class SingleRequest(RequestConverter, Action):
+    def __init__(self, key, action, **config_data):
         self.key = key
+        self.action = action
         self.converter = config_data
 
     def calculate(self):
@@ -18,3 +20,6 @@ class SingleRequest(RequestConverter):
     def value(self):
         '''Returns the resulting value (only avaibale after calculation)'''
         return self.converter.main_value.value()
+
+    def set_value(self, val):
+        self.converter.main_value.update(val)

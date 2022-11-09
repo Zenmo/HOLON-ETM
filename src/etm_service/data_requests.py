@@ -16,6 +16,11 @@ class DataRequests:
             for value in single_request.values():
                 batches.add(value)
 
+    def combine(self, combiner):
+        '''Use the combiner to inject the holon outcomes into the (SET) requests'''
+        for single_request in self.all():
+            combiner.inject(single_request)
+
     def convert(self):
         '''Start converters on all single_requests'''
         for request in self.all():
@@ -31,9 +36,9 @@ class DataRequests:
         return {result.key: result.value() for result in self.all()}
 
     @classmethod
-    def load_from_path(cls, path):
+    def load_from_path(cls, path, action='GET'):
         '''Loads the data requests from the config'''
         with open(path, 'r') as f:
             doc = yaml.load(f, Loader=yaml.FullLoader)
 
-        return cls([SingleRequest(key, **data) for key, data in doc.items()])
+        return cls([SingleRequest(key, action, **data) for key, data in doc.items()])

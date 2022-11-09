@@ -21,20 +21,25 @@ class RequestConverter:
         '''Unpacks data and returns a Value based on it'''
         return self._value_for(*self._safe_value_params(value_data))
 
-    def _value_for(self, etm_key, data, endpoint):
+    def _value_for(self, key, data, endpoint):
         '''
         Extract which type of data we're dealing with, can be a Curve or a single value
         '''
-        if data == "curve":
-            return Curve(etm_key, endpoint)
+        if endpoint == "static":
+            return Value(key, value=data, static=True)
+        elif data == "curve":
+            return Curve(key, endpoint)
         elif endpoint == "node_property":
-            return NodeProperty(etm_key, node_property=data, endpoint=endpoint)
+            return NodeProperty(key, node_property=data, endpoint=endpoint)
         else:
-            return Value(etm_key, endpoint)
+            return Value(key, endpoint)
 
     def _safe_value_params(self, value_data):
         '''Return some reasonable info to the user if they messed up the config'''
         try:
+            if value_data['type'] == 'static':
+                return value_data['key'], value_data['value'], value_data['type']
+
             return value_data['etm_key'], value_data['data'], value_data['type']
         except KeyError as err:
             raise MissingRequestInfoException(f'Missing field {str(err)} in {self.key}') from err

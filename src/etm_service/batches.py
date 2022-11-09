@@ -1,11 +1,11 @@
 from .batch import Batch
 
 class Batches:
-    def __init__(self):
-        self._curves = Batch('curves')
-        self._nodes = Batch('nodes')
-        self._queries = Batch('queries')
-        self._inputs = Batch('inputs')
+    def __init__(self, action='GET'):
+        self._curves = Batch('curves', action)
+        self._nodes = Batch('nodes', action)
+        self._queries = Batch('queries', action)
+        self._inputs = Batch('inputs', action)
 
     def each(self):
         yield self._curves
@@ -26,10 +26,10 @@ class Batches:
         else:
             raise UnknownValueType(f'{value} could not be added to a batch')
 
-    def send(self):
+    def send(self, scenario_id):
         '''Sends all the batches'''
         for batch in self.each():
-            batch.send()
+            batch.send(scenario_id)
 
 class UnknownValueType(BaseException):
     pass

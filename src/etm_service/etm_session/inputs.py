@@ -2,7 +2,7 @@ import requests
 
 from .session import ETMSession
 
-class ETMInputsSession(ETMSession):
+class ETMGetInputsSession(ETMSession):
     ENDPOINT = '/inputs'
 
     def send_request(self, keys):
@@ -20,3 +20,18 @@ class ETMInputsSession(ETMSession):
             return input['user']
         except KeyError:
             return input['default']
+
+
+class ETMSetInputsSession(ETMSession):
+    ENDPOINT = '/'
+
+    def send_request(self, data):
+        json = {'scenario': {'user_values': data}}
+        self._handle_response(requests.put(self.url(), json=json))
+        yield True
+
+    def _handle_response(self, response):
+        if response.ok:
+            return
+
+        return super()._handle_response(response)
