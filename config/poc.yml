@@ -20,14 +20,26 @@
 #                         converted with. E.g for 'divide' this is the value to be divided by.
 #                         This value has the same properties as the main 'value' field.
 
-national_total_costs:
+national_kpi_total_costs:
   value:
     type: query
     data: value
     etm_key: total_costs
 
-CO2_emissions_percentage:
+national_kpi_CO2_emissions:
   value:
     type: query
     data: value
-    etm_key: dashboard_co2_emissions_versus_start_year
+    etm_key: kpi_co2_emissions_versurs_start_year
+  
+national_kpi_electricity_netwoork_reinforcement:
+  value:
+    type: query
+    data: value
+    etm_key: kpi_required_additional_hv_network_percentage
+
+national_kpi_self_sufficiency:
+  value:
+    type: query
+    data: value
+    etm_key: kpi_self_sufficiency_local_production_of_primary_demand
