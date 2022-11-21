@@ -65,6 +65,9 @@ def scale_copy_and_send(scenario_id, holon_outcomes, config_path=CONFIG_PATH, co
     # Convert first
     data_requests.convert()
 
+    # Balance after conversions
+    data_requests.balance()
+
     # Prepare batches
     batches = Batches(action='SET')
     data_requests.ready(batches)

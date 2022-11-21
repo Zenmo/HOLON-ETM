@@ -27,3 +27,6 @@ class SingleRequest(RequestConverter, Action):
     def etm_key(self):
         '''Returns the etm key of the main value'''
         return self.converter.main_value.key
+
+    def endpoint(self):
+        return self.converter.main_value.endpoint

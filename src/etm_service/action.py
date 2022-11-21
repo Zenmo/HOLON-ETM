@@ -11,9 +11,3 @@ class Action():
             self._action = value
         else:
             raise ValueError('Actions can only be "GET" or "SET"')
-
-    def is_active(self):
-        return self.action == 'disabled'
-
-    def deactivate(self):
-        self._action = 'disabled'

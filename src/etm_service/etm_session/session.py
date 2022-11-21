@@ -30,7 +30,7 @@ class ETMSession:
         '''Return the handled response (list/dict of outcomes)'''
         if response.status_code == 422:
             self.fail_with(errors=response.json()['errors'])
-        print(response.content)
+
         self.fail_with('Something went wrong connecting to the ETM')
 
     def fail_with(self, message='', errors=[]):

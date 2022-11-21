@@ -61,4 +61,4 @@ def test_balancer_with_setting_inputs_to_zero(basic_request):
     extra_requests = balancer.resolve()
 
     assert not extra_requests
-    assert not basic_request.is_active()
+    assert not basic_request.converter.main_value.is_set()

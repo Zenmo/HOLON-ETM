@@ -23,6 +23,9 @@ class Value:
         '''Updates the value'''
         self._value = float(value)
 
+    def unset(self):
+        self._value = None
+
     ## Conversions
 
     def multiply(self, other):

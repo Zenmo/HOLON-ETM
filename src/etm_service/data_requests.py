@@ -1,6 +1,7 @@
 import yaml
 
 from .single_request import SingleRequest
+from .balancer import Balancer
 
 class DataRequests:
     def __init__(self, single_requests):
@@ -25,6 +26,20 @@ class DataRequests:
         '''Start converters on all single_requests'''
         for request in self.all():
             request.calculate()
+
+    def balance(self):
+        '''
+        Pull all requests through the balancer
+        TODO: combine with convert as one loop through requests for SET actions
+        '''
+        balancer = Balancer()
+
+        for request in self.all():
+            if request.endpoint() == 'input' and request.action == 'SET':
+                balancer.add(request)
+
+        for new_request in balancer.resolve():
+            self.data_requests.append(new_request)
 
     def write_to(self, path):
         '''Tell all single requests to start writing their data'''

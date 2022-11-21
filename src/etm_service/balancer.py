@@ -35,7 +35,6 @@ class Balancer:
         self.balance = [{slider: 0 for slider in sliders} for sliders in BALANCING_GROUPS]
 
     def add(self, single_request):
-        #  Nee nee nee. We zetten de value op de request sowieso en gaan daarvanuit!
         etm_key = single_request.etm_key()
         for group in self.balance:
             if etm_key in group:
@@ -53,7 +52,7 @@ class Balancer:
             # Check if the set sliders in the share group sum to 100
             total = sum(sliders.values())
 
-            if total == 100.0 or total == 0:
+            if total == 100.0:
                 continue
 
             if total == 0:
@@ -73,6 +72,7 @@ class Balancer:
         '''
         Even distribution over all set sliders, also set untouched sliders
         in share group to 0
+        TODO: also untouched sliders are altered, fix that
         '''
         distribution = losses / float(len(sliders))
         for slider, old_value in sliders.items():
@@ -111,4 +111,4 @@ class Balancer:
         '''Deactivate requests for these sliders'''
         for request in self.requests:
             if request.etm_key() in sliders:
-                request.deactivate()
+                request.converter.main_value.unset()
