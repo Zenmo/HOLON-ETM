@@ -21,13 +21,13 @@
 #                         This value has the same properties as the main 'value' field.
 
 
-name_of_holon_input_buildings_solar_panels: # deze HOLON-slidernaam moet nog worden geüpdatet, is nu nog onbekend
+share_of_buildings_with_solar_panels: # deze HOLON-slidernaam hebben wij bedacht en moet worden overgenomen door HOLON-frontend
   value:
     type: input
     data: value
     etm_key: buildings_solar_pv_solar_radiation_market_penetration
 
-name_of_holon_input_eletric_trucks: # deze HOLON-slidernaam moet nog worden geüpdatet, is nu nog onbekend
+share_of_electric_trucks: # deze HOLON-slidernaam hebben wij bedacht en moet worden overgenomen door HOLON-frontend
   value:
     type: input
     data: value
@@ -35,7 +35,7 @@ name_of_holon_input_eletric_trucks: # deze HOLON-slidernaam moet nog worden geü
 
 # the diesel trucks slider also has to be set, otherwise the scenario will not work right?
 # the diesel trucks have to be set to 1.0 - name_of_holon_input_eletric_trucks
-name_of_holon_input_eletric_trucks: # deze HOLON-slidernaam moet nog worden geüpdatet, is nu nog onbekend
+share_of_electric_trucks: # deze HOLON-slidernaam hebben wij bedacht en moet worden overgenomen door HOLON-frontend
   value:
     type: input
     data: value
@@ -44,6 +44,16 @@ name_of_holon_input_eletric_trucks: # deze HOLON-slidernaam moet nog worden geü
   convert_with_value:
     type: static # is this supported?
     data: 1.0
+
+grid_battery_on_off: # deze HOLON-slidernaam hebben wij bedacht en moet worden overgenomen door HOLON-frontend
+  value:
+    type: input
+    data: value
+    etm_key: energy_flexibility_mv_batteries_electricity
+  conversion: multiply
+  convert_with_value:
+    type: static # is this supported?
+    data: 280000.0 # aantal bedrijventerreinen in NL (3500) * typische grootte batterijen in ETM(80 MW)
 
 # hourly profile electric trucks
 totalEHGVHourlyChargingProfile_kWh:
