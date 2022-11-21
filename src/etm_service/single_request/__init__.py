@@ -23,3 +23,7 @@ class SingleRequest(RequestConverter, Action):
 
     def set_value(self, val):
         self.converter.main_value.update(val)
+
+    def etm_key(self):
+        '''Returns the etm key of the main value'''
+        return self.converter.main_value.key
