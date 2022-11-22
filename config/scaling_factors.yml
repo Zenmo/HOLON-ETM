@@ -39,3 +39,9 @@ name_of_ev_curve_output_of_holon:
     type: curve
     data: curve
     etm_key: electric_vehicle_profile_1
+
+name_of_holon_input_eletric_trucks:
+  value:
+    type: input
+    data: value
+    etm_key: transport_truck_using_electricity_share

@@ -21,6 +21,13 @@ class SingleRequest(RequestConverter, Action):
         '''Returns the resulting value (only avaibale after calculation)'''
         return self.converter.main_value.value()
 
+    def value_safe(self):
+        '''Returns the resulting value (available before calculation)'''
+        try:
+            return self.value()
+        except:
+            return None
+
     def set_value(self, val):
         self.converter.main_value.update(val)
 
@@ -30,3 +37,9 @@ class SingleRequest(RequestConverter, Action):
 
     def endpoint(self):
         return self.converter.main_value.endpoint
+
+    def __repr__(self) -> str:
+        return (
+            f'SingleRequest<key={self.key}, action={self.action}, endpoint={self.endpoint()},' +
+            f'etm_key={self.etm_key()}, value={self.value_safe()}'
+        )
