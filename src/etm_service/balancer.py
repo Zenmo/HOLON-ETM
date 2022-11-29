@@ -46,7 +46,7 @@ class Balancer:
         '''
         Main function
         Changes the values of the requests so that the sliders in each balancing
-        group sum to 100. Returns self.slider_settings
+        group sum to 100. Returns self.extra_requests
         '''
         for sliders in self.balance:
             # Check if the set sliders in the share group sum to 100
@@ -60,7 +60,7 @@ class Balancer:
 
             elif total < 100:
                 losses = 100 - total
-                self.__distribute_losses(sliders, losses)
+                self.__add_losses_to_other(sliders, losses)
 
             else:
                 factor = 100 / total
@@ -77,6 +77,17 @@ class Balancer:
         distribution = losses / float(len(sliders))
         for slider, old_value in sliders.items():
             self.__update_or_create_request(slider, old_value + distribution)
+
+    def __add_losses_to_other(self, sliders, losses):
+        '''
+        Distribute losses to the one untouched slider (in this case diesel trucks)
+        NOTE: MVP hack
+        '''
+        for slider, old_value in sliders.items():
+            # Which means we have the diesel slider
+            if old_value == 0:
+                # Dump all losses in there
+                self.__update_or_create_request(slider, losses)
 
     def __rescale_values(self, sliders, factor):
         '''
