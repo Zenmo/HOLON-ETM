@@ -9,6 +9,11 @@ BALANCING_GROUPS = [
     ],
 ]
 
+# TODO: quick and ugly fix as the balancer should now only work for two types
+# of trucks in the KEV. Should definitely be picked up!!!
+# There is 0.2 percent gasoline trucks in the mix for the KEV. Keep it for now.
+TOTAL = 99.8
+
 class Balancer:
     '''
     Balancer is initialised with slider settings like the ones defined in
@@ -52,18 +57,18 @@ class Balancer:
             # Check if the set sliders in the share group sum to 100
             total = sum(sliders.values())
 
-            if total == 100.0:
+            if total == TOTAL:
                 continue
 
             if total == 0:
                 self.__deactivate_requests(sliders)
 
-            elif total < 100:
-                losses = 100 - total
+            elif total < TOTAL:
+                losses = TOTAL - total
                 self.__add_losses_to_other(sliders, losses)
 
             else:
-                factor = 100 / total
+                factor = TOTAL / total
                 self.__rescale_values(sliders, factor)
 
         return self.extra_requests

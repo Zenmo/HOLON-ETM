@@ -55,7 +55,7 @@ def scale_copy_and_send(scenario_id, holon_outcomes, config_path=CONFIG_PATH, co
     # Update configs
     Config.CONFIG_PATH = config_path / 'config.yml'
 
-    # Create and send requests
+    # Create requests
     data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml', action='SET')
 
     # Combine requests with HOLON outcomes

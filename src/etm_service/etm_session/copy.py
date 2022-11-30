@@ -7,9 +7,9 @@ class ETMCopySession(ETMSession):
     '''Copies the ETM scenario and sets the new ID in the Config'''
     ENDPOINT = '/'
 
-    def send_request(self, scenario_id):
-        json = {'scenario': {'scenario_id': scenario_id}}
-        yield self._handle_response(requests.post(Config().api_url, json=json))
+    def send_request(self, _):
+        payload = {'scenario': {'scenario_id': self.scenario_id}}
+        yield self._handle_response(requests.post(Config().api_url, json=payload))
 
     def _handle_response(self, response):
         if response.ok:
