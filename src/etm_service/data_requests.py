@@ -57,3 +57,7 @@ class DataRequests:
             doc = yaml.load(f, Loader=yaml.FullLoader)
 
         return cls([SingleRequest(key, action, **data) for key, data in doc.items()])
+
+    @classmethod
+    def from_dict(cls, doc: dict, action="GET"):
+        return cls([SingleRequest(key, action, **data) for key, data in doc.items()])
