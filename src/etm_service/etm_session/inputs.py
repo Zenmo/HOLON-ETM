@@ -26,7 +26,7 @@ class ETMSetInputsSession(ETMSession):
     ENDPOINT = '/'
 
     def send_request(self, data):
-        json = {'scenario': {'user_values': data}}
+        json = {'scenario': {'user_values': data}, 'autobalance': True}
         self._handle_response(requests.put(self.url(), json=json))
         yield True
 

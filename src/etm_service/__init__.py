@@ -100,7 +100,8 @@ def scale_copy_and_send_from_requests(scenario_id, holon_outcomes, data_requests
     data_requests.convert()
 
     # Balance after conversions
-    data_requests.balance()
+    # I let the engine autobalance for now, should be good enough
+    # data_requests.balance()
 
     # Prepare batches
     batches = Batches(action='SET')
