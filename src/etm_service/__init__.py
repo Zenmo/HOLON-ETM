@@ -26,7 +26,7 @@ def retrieve_results_and_write():
     data_requests.write_to(destination)
 
 
-def retrieve_results(scenario_id, from_dict={}, config_path=CONFIG_PATH, config_name='etm_service') -> dict:
+def retrieve_results(scenario_id, from_dict=None, config_path=CONFIG_PATH, config_name='etm_service') -> dict:
     '''
     Retrieves the ETM outputs as specified in either the from_dict or the config,
     and returns the results in a dict. Sets the correct CONFIG path for retrieving main

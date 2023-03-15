@@ -1,3 +1,4 @@
+import json
 import yaml
 
 from .single_request import SingleRequest
@@ -55,9 +56,11 @@ class DataRequests:
         '''Loads the data requests from the config'''
         with open(path, 'r') as f:
             doc = yaml.load(f, Loader=yaml.FullLoader)
-
         return cls([SingleRequest(key, action, **data) for key, data in doc.items()])
 
     @classmethod
-    def from_dict(cls, doc: dict, action="GET"):
+    def from_dict(cls, path: dict, action='GET'):
+        '''Loads the data requests from a dictionary'''
+        with open(path) as f:
+            doc = json.load(f)
         return cls([SingleRequest(key, action, **data) for key, data in doc.items()])
