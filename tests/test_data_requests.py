@@ -3,8 +3,17 @@ from etm_service.single_request import SingleRequest
 from etm_service.batches import Batches
 from etm_service.combiner import Combiner
 
-def test_load(config_path):
+def test_load_from_path(config_path):
     data_requests = DataRequests.load_from_path(config_path)
+
+    # Check if it has loaded at least one
+    assert next(data_requests.all())
+
+    # Is it a request?
+    assert isinstance(next(data_requests.all()), SingleRequest)
+
+def test_from_dict(config_dict):
+    data_requests = DataRequests.from_dict(config_dict)
 
     # Check if it has loaded at least one
     assert next(data_requests.all())
