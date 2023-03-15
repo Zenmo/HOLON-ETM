@@ -1,0 +1,15 @@
+{
+    "share_of_electric_trucks_shadow": {
+        "value": {
+            "type": "input",
+            "data": "value",
+            "etm_key": "share_of_electric_trucks"
+        },
+        "conversion": "multiply",
+        "convert_with_value": {
+            "type": "query",
+            "data": "value",
+            "etm_key": "tester_convert_with_etm"
+        }
+    }
+}

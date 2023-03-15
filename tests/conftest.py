@@ -5,6 +5,10 @@ from pathlib import Path
 import pytest
 
 @pytest.fixture
+def config_dict():
+    return Path('tests/fixtures/etm_service_dict.json').resolve()
+
+@pytest.fixture
 def config_path():
     return Path('tests/fixtures/etm_service_config.yml').resolve()
 
