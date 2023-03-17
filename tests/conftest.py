@@ -4,6 +4,8 @@ sys.path.append(path.dirname(path.dirname(path.abspath(__file__))) + '/src')
 from pathlib import Path
 import pytest
 
+from fixtures.scaling_factors_dict import config_dict
+
 @pytest.fixture
 def config_path():
     return Path('tests/fixtures/etm_service_config.yml').resolve()
@@ -11,6 +13,22 @@ def config_path():
 @pytest.fixture
 def config_path_scaling():
     return Path('tests/fixtures/scaling_factors.yml').resolve()
+
+@pytest.fixture
+def config_dict_scaling():
+    return config_dict
+
+@pytest.fixture
+def holon_outcomes():
+    return {
+        'households_solar_pv_solar_radiation': 3,
+        'households_flexibility_p2p_electric': 4,
+        'households_cooker_induction_electri': 5,
+        'shadow_mv_batteries': 6,
+        'share_of_electric_trucks_shadow': 7,
+        'shadow_key_households': 8,
+        'households_heater_hybrid_heatpump': 9,
+    }
 
 @pytest.fixture
 def nodes_response_data():

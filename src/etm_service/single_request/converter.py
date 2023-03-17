@@ -55,22 +55,35 @@ class RequestConverter:
             converter_config(kwargs):   Has at least the key 'conversion'. Used to determine the
                                         converter for this data request.
         '''
-        conversion = converter_config.pop('conversion', None)
-        if conversion == 'divide' and 'convert_with_value' in converter_config:
-            return converters.DivideBy(
-                main_value,
-                self._as_value(converter_config.pop('convert_with_value'))
-            )
-        if conversion == 'multiply' and 'convert_with_value' in converter_config:
-            return converters.Multiply(
-                main_value,
-                self._as_value(converter_config.pop('convert_with_value'))
-            )
+        conversion = converter_config.pop('convert_with', None)
         if not conversion:
             return converters.Empty(main_value)
 
+        main_converter = self._converter_for(conversion[0], main_value)
+
+        # create sub converters
+        # if len(conversion) > 1:
+
+        if main_converter:
+            return main_converter
+
         raise MissingRequestInfoException(
             f"Can not create conversion '{conversion}' for {self.key}")
+
+    def _converter_for(self, converter_conf, main_value, main_converter=None):
+        conversion = converter_conf.pop('conversion')
+        if conversion == 'divide':
+            return converters.DivideBy(
+                main_value,
+                self._as_value(converter_conf)
+            )
+        if conversion == 'multiply':
+            return converters.Multiply(
+                main_value,
+                self._as_value(converter_conf)
+            )
+        if not conversion:
+            return converters.Empty(main_value)
 
 
 class MissingRequestInfoException(BaseException):
