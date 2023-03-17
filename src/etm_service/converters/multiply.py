@@ -7,3 +7,5 @@ class Multiply(WithTwoValuesConverter):
             return
 
         self.main_value.multiply(self.second_value)
+
+        self.calculate_children()

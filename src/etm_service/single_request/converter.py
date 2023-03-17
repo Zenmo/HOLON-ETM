@@ -52,8 +52,8 @@ class RequestConverter:
 
         Params:
             main_value(Value):          The Value that should be converted
-            converter_config(kwargs):   Has at least the key 'conversion'. Used to determine the
-                                        converter for this data request.
+            converter_config(dict):     Has at least the key 'convert_with'. Used to determine the
+                                        converters for this data request.
         '''
         conversion = converter_config.pop('convert_with', None)
         if not conversion:
@@ -61,16 +61,16 @@ class RequestConverter:
 
         main_converter = self._converter_for(conversion[0], main_value)
 
-        # create sub converters
-        # if len(conversion) > 1:
+        # Create sub converters
+        if len(conversion) > 1:
+            for child_conversion in conversion[1:]:
+                main_converter.add_child(
+                    self._converter_for(child_conversion, self._value_for('', None, None))
+                )
 
-        if main_converter:
-            return main_converter
+        return main_converter
 
-        raise MissingRequestInfoException(
-            f"Can not create conversion '{conversion}' for {self.key}")
-
-    def _converter_for(self, converter_conf, main_value, main_converter=None):
+    def _converter_for(self, converter_conf, main_value):
         conversion = converter_conf.pop('conversion')
         if conversion == 'divide':
             return converters.DivideBy(
@@ -84,6 +84,9 @@ class RequestConverter:
             )
         if not conversion:
             return converters.Empty(main_value)
+
+        raise MissingRequestInfoException(
+            f"Can not create conversion '{conversion}' for {self.key}")
 
 
 class MissingRequestInfoException(BaseException):

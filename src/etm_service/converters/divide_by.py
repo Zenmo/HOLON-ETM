@@ -7,3 +7,5 @@ class DivideBy(WithTwoValuesConverter):
             return
 
         self.main_value.divide_by(self.second_value)
+
+        self.calculate_children()
