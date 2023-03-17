@@ -115,23 +115,24 @@ def test_values():
 
     assert request.value() == 10*500
 
-# def test_with_multiple_conversions():
-#     request = SingleRequest('buildings_heating_electricity', 'SET', value={'data':'value',
-#         'etm_key':'the_etm_key', 'type':'inputs'},
-#         convert_with=[
-#             {'key':'scaling_factor_x', 'conversion':'multiply','value':500, 'type':'static'},
-#             {'key':'scaling_factor_y', 'conversion':'multiply','value':10, 'type':'static'}
-#         ])
+def test_with_multiple_conversions():
+    request = SingleRequest('buildings_heating_electricity', 'SET', value={'data':'value',
+        'etm_key':'the_etm_key', 'type':'inputs'},
+        convert_with=[
+            {'key':'scaling_factor_x', 'conversion':'multiply', 'value':500, 'type':'static'},
+            {'key':'scaling_factor_y', 'conversion':'multiply', 'value':10, 'type':'static'},
+            {'key':'scaling_factor_y', 'conversion':'divide', 'value':5, 'type':'static'}
+        ])
 
-#     request.set_value(10)
+    request.set_value(10)
 
-#     request_values = request.values()
-#     # Only send the first value as required for calculation
-#     assert next(request_values).value() == 10
-#     with pytest.raises(StopIteration):
-#         next(request_values)
+    request_values = request.values()
+    # Only send the first value as required for calculation
+    assert next(request_values).value() == 10
+    with pytest.raises(StopIteration):
+        next(request_values)
 
 
-#     request.calculate()
+    request.calculate()
 
-#     assert request.value() == 10*500*10
+    assert request.value() == 10*500*10/5

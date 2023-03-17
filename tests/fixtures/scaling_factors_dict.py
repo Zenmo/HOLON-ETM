@@ -87,12 +87,13 @@ config_dict = {
                     "value": 0.6,
                     "key": "scaling_buurtelektrificatie"
                 },
-                {
-                    "type": "query",
-                    "etm_key": "Tester_convert_with_etm",
-                    "value_type": "value",
-                    "conversion": "multiply"
-                },
+                # {  # Dit werkt niet!
+                #     "type": "query",
+                #     "etm_key": "Tester_convert_with_etm",
+                #     "data": "value",
+                #     "value_type": "value",
+                #     "conversion": "multiply"
+                # },
                 {
                     "type": "static",
                     "type_actual": "datamodel",
