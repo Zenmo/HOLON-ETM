@@ -25,19 +25,19 @@ buildings_heating_electricity_curve:
     type: query
     data: curve
     etm_key: some_query
-  conversion: divide
-  convert_with_value:
-    type: query
-    data: value
-    etm_key: some_other_query
+  convert_with:
+    - type: query
+      data: value
+      conversion: divide
+      etm_key: some_other_query
 
 buildings_heating_gas_curve:
   value:
     type: query         # which endpoint
     data: curve         # what to look for / expect
     etm_key: some_query # the exact ETM key
-  conversion: divide
-  convert_with_value:
-    type: node_property
-    data: technical.electricity_output_conversion.future
-    etm_key: industry_chp_combined_cycle_gas_power_fuelmix
+  convert_with:
+    - type: node_property
+      data: technical.electricity_output_conversion.future
+      conversion: divide
+      etm_key: industry_chp_combined_cycle_gas_power_fuelmix

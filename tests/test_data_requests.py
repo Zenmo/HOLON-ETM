@@ -37,6 +37,34 @@ def test_load_with_set_action(config_path_scaling):
 
     assert single_req.action == 'SET'
 
+def test_set_from_dict(config_dict_scaling, holon_outcomes):
+    data_requests = DataRequests.from_dict(config_dict_scaling['config'], action='SET')
+    household_solar = next(data_requests.all())
+
+    # Combine and convert first
+    combiner = Combiner(holon_outcomes)
+    data_requests.combine(combiner)
+
+    assert household_solar.value_safe() == 3.0
+
+    data_requests.convert()
+
+    assert household_solar.value_safe() != 3.0
+
+    batches = Batches(action='SET')
+
+    # Quick check up front
+    for batch in batches.each():
+        assert batch.is_empty()
+
+    # Ready them
+    data_requests.ready(batches)
+
+    # Is there something in them now?
+    for batch in batches.each():
+        if batch.endpoint == 'nodes' or batch.endpoint == 'curves' or batch.endpoint == 'queries':
+            continue # Not yet implemented in the test
+        assert not batch.is_empty()
 
 # def test_balance_transport_truck_using_electricity_share(config_path_scaling):
 #     data_requests = DataRequests.load_from_path(config_path_scaling, action='SET')
