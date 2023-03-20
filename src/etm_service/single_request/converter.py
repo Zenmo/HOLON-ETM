@@ -77,7 +77,7 @@ class RequestConverter:
                 main_value,
                 self._as_value(converter_conf)
             )
-        if conversion == 'multiply':
+        if conversion == 'multiply' or conversion == 'in_product':
             return converters.Multiply(
                 main_value,
                 self._as_value(converter_conf)

@@ -23,6 +23,13 @@ class Curve(Value):
         '''Only used for validation'''
         return self._value.sum()
 
+    def multiply(self, other):
+        if isinstance(other, Curve):
+            return np.inner(self._value, other._value)
+
+        return super().multiply(other)
+
+
     # Later we can add other actions like summing curves, multiplying, etc. We can move
     # them to a module 'operations' when there are starting to be too many
 
