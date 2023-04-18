@@ -2,6 +2,7 @@ from etm_service.curve import Curve
 from etm_service.value import Value
 from etm_service.node_property import NodeProperty
 import etm_service.converters as converters
+import numpy as np
 
 class RequestConverter:
     @property
@@ -28,7 +29,7 @@ class RequestConverter:
         if endpoint == "static_value" or endpoint == "static":
             return Value(key, value=data, static=True)
         elif endpoint == "static_curve":
-            return Curve(key, value=data, static=True)
+            return Curve(key, value=np.array(data), static=True)
         elif data == "curve":
             return Curve(key, endpoint)
         elif endpoint == "node_property":
