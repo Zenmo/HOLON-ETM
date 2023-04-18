@@ -2,6 +2,7 @@ from etm_service.curve import Curve
 from etm_service.value import Value
 from etm_service.node_property import NodeProperty
 import etm_service.converters as converters
+import numpy as np
 
 class RequestConverter:
     @property
@@ -25,8 +26,10 @@ class RequestConverter:
         '''
         Extract which type of data we're dealing with, can be a Curve or a single value
         '''
-        if endpoint == "static":
+        if endpoint == "static_value" or endpoint == "static":
             return Value(key, value=data, static=True)
+        elif endpoint == "static_curve":
+            return Curve(key, value=np.array(data), static=True)
         elif data == "curve":
             return Curve(key, endpoint)
         elif endpoint == "node_property":
@@ -38,7 +41,7 @@ class RequestConverter:
         '''Return some reasonable info to the user if they messed up the config'''
         try:
             if value_data['type'] == 'static':
-                return value_data['key'], value_data['value'], value_data['type']
+                return value_data['key'], value_data['value'], f"{value_data['type']}{'_' + value_data['data'] if 'data' in value_data else ''}"
 
             return value_data['etm_key'], value_data['data'], value_data['type']
         except KeyError as err:
