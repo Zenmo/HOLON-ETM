@@ -81,7 +81,7 @@ def retrieve_from_requests(scenario_id: int, data_requests: DataRequests):
     return data_requests.to_dict()
 
 
-def scale_copy_and_send(scenario_id: int, holon_outcomes: dict, config_dict: dict) -> int:
+def scale_copy_and_send(scenario_id: int, config_dict: dict) -> int:
     '''
     Scales and updates sliders in the ETM, returns the ETM scenario ID of the copied and
     set scenario.
