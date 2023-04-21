@@ -4,7 +4,7 @@ from pathlib import Path
 from etm_service.batches import Batches
 from etm_service.data_requests import DataRequests
 from etm_service.etm_session import ETMConnection
-from etm_service.combiner import Combiner
+from etm_service.combiner import Combiner, RequestsToOne
 from etm_service.config import Config
 
 CONFIG_PATH = Path(__file__).parents[2].resolve() / 'config'
@@ -102,10 +102,10 @@ def scale_copy_and_send(scenario_id: int, holon_outcomes: dict, config_dict: dic
 
     data_requests = DataRequests.from_dict(config_dict['config'], action='SET')
 
-    return scale_copy_and_send_from_requests(scenario_id, holon_outcomes, data_requests)
+    return scale_copy_and_send_from_requests(scenario_id, data_requests)
 
 
-def scale_copy_and_send_from_ymls(scenario_id, holon_outcomes, config_path=CONFIG_PATH,
+def scale_copy_and_send_from_ymls(scenario_id, config_path=CONFIG_PATH,
     config_name='scaling_factors') -> int:
     '''
     Scales and updates sliders in the ETM, returns the ETM scenario ID of the copied and
@@ -123,15 +123,17 @@ def scale_copy_and_send_from_ymls(scenario_id, holon_outcomes, config_path=CONFI
 
     data_requests = DataRequests.load_from_path(config_path / f'{config_name}.yml', action='SET')
 
-    return scale_copy_and_send_from_requests(scenario_id, holon_outcomes, data_requests)
+    return scale_copy_and_send_from_requests(scenario_id, data_requests)
 
 
-def scale_copy_and_send_from_requests(scenario_id, holon_outcomes, data_requests: DataRequests):
+def scale_copy_and_send_from_requests(scenario_id, data_requests: DataRequests):
     '''Called only by the other two scale_copy_and_send methods'''
 
     # Combine requests with HOLON outcomes
-    combiner = Combiner(holon_outcomes)
-    data_requests.combine(combiner)
+    # combiner = Combiner(holon_outcomes)
+    # data_requests.combine(combiner)
+
+    data_requests.combine(RequestsToOne())
 
     # Convert first
     data_requests.convert()

@@ -27,7 +27,7 @@ energy_power_solar_pv_solar_radiation_capacity:
     type: input
     data: value
     etm_key: capacity_of_energy_power_solar_pv_solar_radiation
-  convert_with_value:
+  convert_with:
     # TODO: Document special case for static type values
     - type: static
       value: 500
