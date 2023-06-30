@@ -208,6 +208,42 @@ def test_with_multiple_conversions():
 
     assert request.value() == 10 * 500 * 10 / 5
 
+
+def test_with_multiple_conversions_to_curve():
+    request = SingleRequest(
+        "buildings_heating_electricity",
+        "SET",
+        value={"data": "value", "etm_key": "the_etm_key", "type": "input"},
+        convert_with=[
+            {
+                "key": "multi_negative",
+                "conversion": "multiply",
+                "value": -1.0,
+                "type": "static",
+            },
+            {
+                "key": "multi_zero",
+                "conversion": "multiply",
+                "value": 0.0,
+                "type": "static",
+            },
+            {
+                "key": "multi_curve",
+                "conversion": "multiply",
+                "value": [1.0, 2.0, 3.0],
+                "data": "curve",
+                "type": "static",
+            },
+        ],
+    )
+
+    request.set_value(1)
+
+    request_values = request.values()
+
+    assert next(request_values).value() == [0.0, 0.0, 0.0]
+
+
 def test_inproduct():
 
     c1 = Curve("curve_key", endpoint="GET", value=np.array([1,2,3]))
