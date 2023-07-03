@@ -238,10 +238,9 @@ def test_with_multiple_conversions_to_curve():
     )
 
     request.set_value(1)
+    request.calculate()
 
-    request_values = request.values()
-
-    assert next(request_values).value() == [0.0, 0.0, 0.0]
+    assert list(request.value()) == [0.0, 0.0, 0.0]
 
 
 def test_inproduct():
