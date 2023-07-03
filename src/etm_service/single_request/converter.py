@@ -27,6 +27,8 @@ class RequestConverter:
         Extract which type of data we're dealing with, can be a Curve or a single value
         '''
         if endpoint == "static_value" or endpoint == "static":
+            if hasattr(data, '__iter__'):
+                return Curve(key, value=data, static=True)
             return Value(key, value=data, static=True)
         elif endpoint == "static_curve":
             return Curve(key, value=np.array(data), static=True)
