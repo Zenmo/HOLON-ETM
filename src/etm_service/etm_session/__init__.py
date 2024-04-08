@@ -55,7 +55,7 @@ class ETMConnection:
         yield from self.session.send_request(requested_keys)
 
 
-class InvalidEndpoint(BaseException):
+class InvalidEndpoint(Exception):
     def __init__(self, endpoint, *args):
         mess = f'No method available to connect to endpoint {endpoint}'
         super().__init__(mess, *args)
