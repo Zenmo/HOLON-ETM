@@ -31,5 +31,5 @@ class Batches:
         for batch in self.each():
             batch.send(scenario_id)
 
-class UnknownValueType(BaseException):
+class UnknownValueType(Exception):
     pass

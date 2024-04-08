@@ -41,5 +41,5 @@ class ETMSession:
         raise ETMConnectionError(message)
 
 
-class ETMConnectionError(BaseException):
+class ETMConnectionError(Exception):
     pass

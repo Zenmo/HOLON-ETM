@@ -38,7 +38,7 @@ class NodeProperty(Value):
             self._value = float(value)
 
 
-class UnknownPropertyError(BaseException):
+class UnknownPropertyError(Exception):
     def __init__(self, key, value, elem, *args):
         message = f'Unknown node property for {elem}: {key} not in {list(value.keys())}'
         super().__init__(message, *args)

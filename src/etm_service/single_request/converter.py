@@ -94,5 +94,5 @@ class RequestConverter:
             f"Can not create conversion '{conversion}' for {self.key}")
 
 
-class MissingRequestInfoException(BaseException):
+class MissingRequestInfoException(Exception):
     pass
